@@ -2,7 +2,7 @@
 
 A production-style SaaS dashboard for small and mid-sized businesses: invoicing, inventory, customers and analytics, with **multi-tenancy** and **role-based access control**. Built by **Muqaddam Sheikh** ([muqaddamshaikh.site](https://www.muqaddamshaikh.site/) · [github.com/muqqu](https://github.com/muqqu)).
 
-**Live demo:** LIVE_URL
+**Live demo:** https://ledgerly-saas-orcin.vercel.app
 
 ## One-click demo accounts
 The login page has buttons for each one. The password for every account is `demo1234`.
