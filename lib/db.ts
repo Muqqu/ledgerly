@@ -47,7 +47,7 @@ function seed(): DB {
     }
   }
   for (const t of tenants) invoices.filter(i => i.tenantId === t.id).sort((a, b) => a.issuedAt.localeCompare(b.issuedAt)).forEach((inv, k) => (inv.number = `INV-${2026}-${String(k + 1).padStart(4, "0")}`));
-  const acts = ["created invoice", "marked invoice as paid", "restocked", "added customer", "updated product price"];
+  const acts = ["created an invoice for", "restocked", "updated the price of", "added product"];
   for (const t of tenants) { const tu = users.filter(u => u.tenantId === t.id); for (let i = 0; i < 8; i++) activity.push({ id: `${t.id}_a${i}`, tenantId: t.id, actor: pick(tu).name, action: `${pick(acts)} ${pick(products.filter(p => p.tenantId === t.id)).name}`, at: new Date(now.getTime() - i * 3.7 * 3600e3).toISOString() }); }
   return { tenants, users, customers, products, invoices, activity, seq: 1000 };
 }
