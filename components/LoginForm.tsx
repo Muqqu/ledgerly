@@ -21,24 +21,23 @@ export default function LoginForm() {
   }
   return (
     <div className="w-full max-w-md">
-      <h2 className="text-2xl font-bold">Welcome back</h2>
-      <p className="mt-1 text-sm text-slate-500">Sign in, or explore instantly with a one-click demo account.</p>
+      <h2 className="text-2xl font-bold">Try the live demo</h2>
+      <p className="mt-1 text-sm text-slate-500">Pick a role to sign in instantly. No signup needed.</p>
       <div className="mt-6 grid grid-cols-2 gap-2">
-        {demos.map(d => (
-          <button key={d.email} onClick={() => login(d.email, "demo1234")} disabled={!!busy} className="card p-3 text-left transition hover:border-indigo-400 hover:shadow">
-            <div className="flex items-center justify-between text-sm font-semibold">{d.label}{busy === d.email ? <Loader2 className="h-4 w-4 animate-spin" /> : <LogIn className="h-4 w-4 text-indigo-500" />}</div>
+        {demos.map((d, i) => (
+          <button key={d.email} onClick={() => login(d.email, "demo1234")} disabled={!!busy} aria-label={`Sign in as ${d.label}: ${d.note}`} className={`card p-3 text-left transition hover:border-indigo-400 hover:shadow focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 ${i === 0 ? "border-indigo-300 ring-2 ring-indigo-100" : ""}`}>
+            <div className="flex items-center justify-between text-sm font-semibold"><span className="flex items-center gap-1.5">{d.label}{i === 0 && <span className="rounded-full bg-indigo-50 px-1.5 text-[10px] font-semibold text-indigo-700">Recommended</span>}</span>{busy === d.email ? <Loader2 className="h-4 w-4 animate-spin" /> : <LogIn aria-hidden="true" className="h-4 w-4 text-indigo-600" />}</div>
             <div className="mt-0.5 text-xs text-slate-500">{d.note}</div>
           </button>
         ))}
       </div>
-      <div className="my-6 flex items-center gap-3 text-xs text-slate-400"><div className="h-px flex-1 bg-slate-200" />or sign in with email<div className="h-px flex-1 bg-slate-200" /></div>
+      <div className="my-6 flex items-center gap-3 text-xs text-slate-600"><div className="h-px flex-1 bg-slate-200" />or sign in with email<div className="h-px flex-1 bg-slate-200" /></div>
       <form onSubmit={e => { e.preventDefault(); login(email, password); }} className="space-y-3">
-        <div><label className="label">Email</label><input className="input" type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="admin@indus.demo" required /></div>
-        <div><label className="label">Password</label><input className="input" type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="demo1234" required /></div>
-        {err && <p className="text-sm text-rose-600">{err}</p>}
+        <div><label htmlFor="login-email" className="label">Email</label><input id="login-email" autoComplete="email" aria-describedby="login-hint" className="input" type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="admin@indus.demo" required /><p id="login-hint" className="mt-1 text-xs text-slate-600">Demo password for all accounts: <code>demo1234</code></p></div>
+        <div><label htmlFor="login-password" className="label">Password</label><input id="login-password" autoComplete="current-password" className="input" type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="demo1234" required /></div>
+        {err && <p role="alert" className="text-sm text-rose-700">{err}</p>}
         <button className="btn-primary w-full" disabled={!!busy}>Sign in</button>
       </form>
-      <p className="mt-4 text-center text-xs text-slate-400">Demo password for all accounts: <code>demo1234</code></p>
     </div>
   );
 }
