@@ -1,0 +1,10 @@
+export type Role = "admin" | "manager" | "viewer";
+export type Tenant = { id: string; name: string; city: string; plan: "Starter" | "Growth" | "Enterprise" };
+export type User = { id: string; tenantId: string; name: string; email: string; password: string; role: Role };
+export type Customer = { id: string; tenantId: string; name: string; email: string; city: string; createdAt: string };
+export type Product = { id: string; tenantId: string; sku: string; name: string; category: string; price: number; stock: number; reorderLevel: number };
+export type InvoiceStatus = "paid" | "pending" | "overdue" | "draft";
+export type LineItem = { productId: string; name: string; qty: number; price: number };
+export type Invoice = { id: string; tenantId: string; number: string; customerId: string; customerName: string; items: LineItem[]; total: number; status: InvoiceStatus; issuedAt: string; dueAt: string };
+export type Activity = { id: string; tenantId: string; actor: string; action: string; at: string };
+export type Session = { userId: string; tenantId: string; role: Role; name: string; email: string };
